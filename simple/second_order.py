@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt 
-from base import SecondOrderSystem
-from utils import show_result
+from base.base import SecondOrderSystem
+from base.utils import show_result
 
 
 if __name__ == '__main__':
