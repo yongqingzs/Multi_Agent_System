@@ -62,7 +62,7 @@ class FirstOrderSystem(BaseSystem):
 
 class SecondOrderSystem(BaseSystem):
     def __init__(self, A, x_init, v_init):
-        self.sys = Protocol(A, x_init)
+        super().__init__(A, x_init)
         if isinstance(v_init, np.ndarray):
             self.v_init = v_init
         else:

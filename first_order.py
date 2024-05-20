@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt 
 from base import FirstOrderSystem
+from utils import show_result
+
 
 if __name__ == '__main__':
     x_init = np.array([1, 2, 3, 4, 5, 6])
@@ -20,8 +22,7 @@ if __name__ == '__main__':
         # 基本一致性协议
         u = -gamma * np.dot(ms.pro.L, ms.x)
         ms.update(u)
-    # 将x_array的各列画出
-    x_array = np.array(ms.x_array)
-    for i in range(x_init.shape[0]):
-        plt.plot(x_array[:, i])
-    plt.show()
+    # 画图
+    show_result(ms.x_array)
+    show_result(ms.u_array)
+    
