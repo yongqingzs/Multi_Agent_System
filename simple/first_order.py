@@ -20,7 +20,7 @@ if __name__ == '__main__':
     time_l = int(10 / ms.dt)
     for i in range(time_l):
         # 基本一致性协议
-        u = -gamma * np.dot(ms.pro.L, ms.x)
+        u = -gamma * np.dot(ms.top.L, ms.x)
         ms.update(u)
     # 画图
     show_result(ms.x_array)

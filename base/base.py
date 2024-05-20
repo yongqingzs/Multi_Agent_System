@@ -2,7 +2,20 @@ from abc import abstractmethod
 import numpy as np
 
 
-class Protocol:
+class ABCProtocol:
+    def __init__(self):
+        pass
+    
+    @abstractmethod
+    def get_u(self):
+        pass
+
+    @abstractmethod
+    def time_bound_estimate(self):
+        pass
+
+
+class Topology:
     """
     仅保留通信拓扑，以更好地抽象出一致性协议的基本结构
     """
@@ -31,7 +44,7 @@ class BaseSystem:
             self.x_init = x_init
         else:
             self.x_init = np.array([1, 2, 3, 4])
-        self.pro = Protocol(A)
+        self.top = Topology(A)
         # 控制
         self.x = self.x_init
         self.u = np.zeros_like(self.x)
