@@ -4,12 +4,8 @@ from base.utils import show_result, sign_abs
 
 """
 "Fixed-time_consensus_algorithm_for_multi-agent_sys"
-
-已完成：
-1，时间上限估计
-
-存在问题：
-1. 控制量计算
+NOTE:
+    1. 未收敛
 """
 class FisrtFixedProtocol(ABCProtocol):
     def __init__(self, A, alpha=1, beta=1, gamma=1.1):

@@ -33,6 +33,11 @@ class Topology:
         self.D = np.diag(np.sum(self.A, axis=1))
         self.L = self.D - self.A
 
+    def get_alg_connectivity(self):
+        vals, _ = np.linalg.eig(self.A)
+        val2 = np.min(vals[vals > 1e-7])  # 其会求出接近0但极小的量
+        return val2
+    
 
 class BaseSystem:
     """

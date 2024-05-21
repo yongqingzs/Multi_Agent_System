@@ -3,13 +3,7 @@ from base.base import ABCProtocol, FirstOrderSystem
 from base.utils import show_result, sign_abs
 
 """
-在不同论文中，会出现参数符号不一致的情况
-
-已完成：
-1，控制量计算
-
-未完成：
-1. 时间上限估计
+"A new class of finite time nonlinear consensus protocols for multi agent systems"
 """
 class FisrtFixedProtocol(ABCProtocol):
     def __init__(self, A, alpha=2, beta=2, p=7, q=9):
@@ -35,9 +29,6 @@ class FisrtFixedProtocol(ABCProtocol):
             for j in range(A.shape[1]):
                 u_temp += alpha * A[i][j] * sign_abs(x[j]-x[i], 2-p/q) + \
                         beta * A[i][j] * sign_abs(x[j]-x[i], p/q)
-                # if (i != j) and (x[j] != x[i]):
-                    # u_temp += alpha * A[i][j] * np.power((x[j]-x[i]), 2-p/q) + \
-                            # beta * A[i][j] * np.power((x[j]-x[i]), p/q)
                 # u_temp += A[i][j] * (x[j]-x[i])  # only for test
             u[i] = u_temp
             u_temp = 0
