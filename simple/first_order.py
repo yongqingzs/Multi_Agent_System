@@ -4,6 +4,14 @@ from base.base import FirstOrderSystem
 from base.utils import show_result
 
 
+"""
+一阶基本一致性协议适用情况：
+  1. 无向图，连通
+  2. 有向图，有生成树（比强连通条件要强）
+
+  性质：
+  1. 在系统的网络拓扑结构为无向图时，系统最终一致值为所有智能体初始值的平均值
+"""
 if __name__ == '__main__':
     x_init = np.array([1, 2, 3, 4, 5, 6])
     A = np.array([[0, 1, 0, 1, 0, 1],

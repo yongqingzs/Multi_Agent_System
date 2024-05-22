@@ -3,11 +3,44 @@ from base.base import ABCProtocol, FirstOrderSystem
 from base.utils import show_result, sign_abs
 
 """
+"A new class of finite time nonlinear consensus protocols for multi agent systems"
+"""
+class FisrtFixedProtocol(ABCProtocol):
+    def __init__(self, A, alpha=2, beta=2, p=7, q=9):
+        self.A = A
+        # 一致性协议自定义的参数
+        self.alpha = alpha
+        self.beta = beta
+        self.p = p
+        self.q = q
+    
+    def time_bound_estimate(self):
+        pass
+    
+    def get_u(self, x):
+        A = self.A
+        alpha = self.alpha
+        beta = self.beta
+        p = self.p
+        q = self.q
+        u = np.zeros_like(x, dtype=np.float64)
+        u_temp = 0
+        for i in range(A.shape[0]):
+            for j in range(A.shape[1]):
+                u_temp += alpha * A[i][j] * sign_abs(x[j]-x[i], 2-p/q) + \
+                        beta * A[i][j] * sign_abs(x[j]-x[i], p/q)
+                # u_temp += A[i][j] * (x[j]-x[i])  # only for test
+            u[i] = u_temp
+            u_temp = 0
+        return u
+
+
+"""
 "Fixed-time_consensus_algorithm_for_multi-agent_sys"
 NOTE:
     1. 未收敛
 """
-class FisrtFixedProtocol(ABCProtocol):
+class FisrtFixedProtocol_1(ABCProtocol):
     def __init__(self, A, alpha=1, beta=1, gamma=1.1):
         self.A = A
         # 一致性协议自定义的参数
@@ -78,19 +111,22 @@ class FisrtFixedProtocol(ABCProtocol):
     
 
 if __name__ == '__main__':
-    x_init = np.array([350, 100, 200, 250, 400, 500])
-    A = np.array([[0, 5, 0, 6, 0, 0],
-                [5, 0, 7, 0, 4, 0],
-                [0, 7, 0, 3, 0, 0],
-                [6, 0, 3, 0, 2, 0],
-                [0, 4, 0, 2, 0, 1],
-                [0, 0, 0, 0, 1, 0]])
+    # x_init = np.array([350, 100, 200, 250, 400, 500])
+    # A = np.array([[0, 5, 0, 6, 0, 0],
+    #             [5, 0, 7, 0, 4, 0],
+    #             [0, 7, 0, 3, 0, 0],
+    #             [6, 0, 3, 0, 2, 0],
+    #             [0, 4, 0, 2, 0, 1],
+    #             [0, 0, 0, 0, 1, 0]])
+    x_init = np.array([-5, -2, 4, 6, 4, 5])
+    A = np.array([[0, 1, 0, 0, 1, 1],
+                [1, 0, 1, 0, 1, 0],
+                [0, 1, 0, 1, 0, 0],
+                [0, 0, 1, 0, 0, 0],
+                [1, 1, 0, 0, 0, 0],
+                [1, 0, 0, 0, 0, 0]])
+    # ffp = FisrtFixedProtocol(A, 1, 1, 1, 1)
     ffp = FisrtFixedProtocol(A)
-    # 测试时间上限
-    T_max_array = ffp.time_bound_estimate()
-    # 测试控制量
-    u = ffp.get_u(x_init)
-    print(u)
     # 仿真参数
     ms = FirstOrderSystem(A, x_init)
     time = 10  # s
